@@ -1,0 +1,25 @@
+{
+    "name": "qdoc-lang",
+    "displayName": "QDoc",
+    "description": "Syntax highlighting for QDoc commands",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.65.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "qdoc",
+            "aliases": ["QDoc", "qdoc"],
+            "extensions": [".qdoc", ".qdocinc"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "qdoc",
+            "scopeName": "source.qdoc",
+            "path": "./syntaxes/qdoc.tmLanguage.json"
+        }]
+    }
+}
