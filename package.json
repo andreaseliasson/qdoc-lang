@@ -4,6 +4,7 @@
     "description": "Syntax highlighting for QDoc commands",
     "repository": "https://github.com/andreaseliasson/qdoc-lang",
     "publisher": "AndreasEliasson",
+    "icon": "images/basic_example.png",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.65.0"
