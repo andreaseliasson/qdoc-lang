@@ -1,0 +1,44 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "QDoc (C++ injection)",
+    "scopeName": "text.qdoc.cpp-injection",
+    "injectionSelector": "L:source.cpp, L:source.c, L:source.qml",
+    "patterns": [
+        { "include": "#qdoc-block" }
+    ],
+    "repository": {
+        "qdoc-block": {
+            "comment": "Match /*! ... */ and highlight the content as QDoc",
+            "name": "comment.block.documentation.qdoc",
+            "begin": "/\\*!",
+            "end": "\\*/",
+            "beginCaptures": {
+                "0": { "name": "punctuation.definition.comment.begin.qdoc" }
+            },
+            "endCaptures": {
+                "0": { "name": "punctuation.definition.comment.end.qdoc" }
+            },
+            "patterns": [
+                { "include": "source.qdoc#inline-bold" },
+                { "include": "source.qdoc#inline-italic" },
+                { "include": "source.qdoc#inline-code" },
+                { "include": "source.qdoc#inline-link" },
+                { "include": "source.qdoc#inline-param" },
+                { "include": "source.qdoc#inline-uicontrol" },
+                { "include": "source.qdoc#inline-sub-sup" },
+                { "include": "source.qdoc#inline-tm" },
+                { "include": "source.qdoc#inline-underline" },
+                { "include": "source.qdoc#heading-command" },
+                { "include": "source.qdoc#warning-command" },
+                { "include": "source.qdoc#note-command" },
+                { "include": "source.qdoc#code-command" },
+                { "include": "source.qdoc#topic-command" },
+                { "include": "source.qdoc#block-command" },
+                { "include": "source.qdoc#conditional-command" },
+                { "include": "source.qdoc#xref-command" },
+                { "include": "source.qdoc#image-command" },
+                { "include": "source.qdoc#generic-command" }
+            ]
+        }
+    }
+}

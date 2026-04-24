@@ -1,11 +1,11 @@
 {
     "name": "qdoc-lang",
     "displayName": "QDoc",
-    "description": "Syntax highlighting for QDoc commands",
+    "description": "Syntax highlighting for QDoc markup in .qdoc files and C++ /*! */ doc comments",
     "repository": "https://github.com/andreaseliasson/qdoc-lang",
     "publisher": "AndreasEliasson",
     "icon": "images/basic_example.png",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "engines": {
         "vscode": "^1.65.0"
     },
@@ -19,10 +19,17 @@
             "extensions": [".qdoc", ".qdocinc"],
             "configuration": "./language-configuration.json"
         }],
-        "grammars": [{
-            "language": "qdoc",
-            "scopeName": "source.qdoc",
-            "path": "./syntaxes/qdoc.tmLanguage.json"
-        }]
+        "grammars": [
+            {
+                "language": "qdoc",
+                "scopeName": "source.qdoc",
+                "path": "./syntaxes/qdoc.tmLanguage.json"
+            },
+            {
+                "scopeName": "text.qdoc.cpp-injection",
+                "path": "./syntaxes/qdoc-injection.tmLanguage.json",
+                "injectTo": ["source.cpp", "source.c", "source.qml"]
+            }
+        ]
     }
 }

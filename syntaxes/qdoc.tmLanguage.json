@@ -1,36 +1,227 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "QDoc",
-	"patterns": [
-		{
-			"include": "#strings"
-		},
-		{
-			"include": "#command"
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.qdoc",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.qdoc",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.qdoc",
-					"match": "\\\\."
-				}
-			]
-		},
-		"command": {
-			"match": "(\\\\)[a-zA-Z0-9]+",
-			"name": "keyword.control.qdoc"
-		}
-	},
-	"scopeName": "source.qdoc"
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "QDoc",
+    "scopeName": "source.qdoc",
+    "fileTypes": ["qdoc", "qdocinc"],
+    "patterns": [
+        { "include": "#comment-delimiter" },
+        { "include": "#inline-bold" },
+        { "include": "#inline-italic" },
+        { "include": "#inline-code" },
+        { "include": "#inline-link" },
+        { "include": "#inline-param" },
+        { "include": "#inline-uicontrol" },
+        { "include": "#inline-sub-sup" },
+        { "include": "#inline-tm" },
+        { "include": "#inline-underline" },
+        { "include": "#heading-command" },
+        { "include": "#warning-command" },
+        { "include": "#note-command" },
+        { "include": "#code-command" },
+        { "include": "#topic-command" },
+        { "include": "#block-command" },
+        { "include": "#conditional-command" },
+        { "include": "#xref-command" },
+        { "include": "#image-command" },
+        { "include": "#generic-command" }
+    ],
+    "repository": {
+
+        "comment-delimiter": {
+            "patterns": [
+                { "name": "punctuation.definition.comment.begin.qdoc", "match": "/\\*!" },
+                { "name": "punctuation.definition.comment.end.qdoc",   "match": "\\*/" }
+            ]
+        },
+
+        "inline-bold": {
+            "comment": "\\b{text} or \\bold{text}",
+            "match": "(\\\\)(bold|b)(?![a-zA-Z0-9])(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.bold.qdoc" },
+                "4": { "name": "markup.bold.qdoc" }
+            }
+        },
+
+        "inline-italic": {
+            "comment": "\\e{text} or \\i{text}",
+            "match": "(\\\\)(e|i)(?![a-zA-Z0-9])(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.italic.qdoc" },
+                "4": { "name": "markup.italic.qdoc" }
+            }
+        },
+
+        "inline-code": {
+            "comment": "\\c{code} or \\tt{code}",
+            "match": "(\\\\)(tt|c)(?![a-zA-Z0-9])(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.inline.raw.string.qdoc" },
+                "4": { "name": "markup.inline.raw.string.qdoc" }
+            }
+        },
+
+        "inline-link": {
+            "comment": "\\l{Target} or \\l word",
+            "match": "(\\\\)(l)(?![a-zA-Z0-9])(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.underline.link.qdoc" },
+                "4": { "name": "markup.underline.link.qdoc" }
+            }
+        },
+
+        "inline-param": {
+            "comment": "\\a param — parameter reference, always a single word",
+            "match": "(\\\\)(a)\\s+(\\S+)",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "variable.parameter.qdoc" }
+            }
+        },
+
+        "inline-uicontrol": {
+            "comment": "\\uicontrol{label}",
+            "match": "(\\\\)(uicontrol)(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.bold.qdoc" },
+                "4": { "name": "markup.bold.qdoc" }
+            }
+        },
+
+        "inline-sub-sup": {
+            "comment": "\\sub{text} and \\sup{text}",
+            "match": "(\\\\)(sub|sup)(?![a-zA-Z0-9])(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.italic.qdoc" },
+                "4": { "name": "markup.italic.qdoc" }
+            }
+        },
+
+        "inline-tm": {
+            "comment": "\\tm{text} — trademark",
+            "match": "(\\\\)(tm)(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "string.other.qdoc" },
+                "4": { "name": "string.other.qdoc" }
+            }
+        },
+
+        "inline-underline": {
+            "comment": "\\underline{text}",
+            "match": "(\\\\)(underline)(?:\\{([^}]*)\\}|(\\S+))",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "markup.underline.qdoc" },
+                "4": { "name": "markup.underline.qdoc" }
+            }
+        },
+
+        "heading-command": {
+            "comment": "\\section1–\\section4, \\title, \\subtitle",
+            "match": "(\\\\)(section[1-4]|title|subtitle)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "markup.heading.qdoc" }
+            }
+        },
+
+        "warning-command": {
+            "comment": "\\warning, \\deprecated",
+            "match": "(\\\\)(warning|deprecated)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "invalid.deprecated.qdoc" }
+            }
+        },
+
+        "note-command": {
+            "comment": "\\note, \\preliminary",
+            "match": "(\\\\)(note|preliminary)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "comment.block.qdoc" }
+            }
+        },
+
+        "code-command": {
+            "comment": "Code-fence markers: \\code, \\qml, \\badcode and their \\end* pairs",
+            "match": "(\\\\)(code|endcode|qml|endqml|badcode|endbadcode)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "markup.raw.block.qdoc" }
+            }
+        },
+
+        "topic-command": {
+            "comment": "Topic commands that introduce a documented entity",
+            "match": "(\\\\)(class|enum|example|externalpage|fn|group|headerfile|macro|module|namespace|page|property|typedef|typealias|variable|qmltype|qmlproperty|qmlmethod|qmlsignal|qmlenum|qmlattachedproperty|qmlattachedsignal|qmlmodule|qmlvaluetype|inqmlmodule|qmlclass|qmlsingletontype)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "entity.name.type.qdoc" }
+            }
+        },
+
+        "block-command": {
+            "comment": "Block open/close pairs: \\list/\\endlist, \\table/\\endtable, etc.",
+            "match": "(\\\\)(list|endlist|table|endtable|raw|endraw|legalese|endlegalese|quotation|endquotation|omit|endomit|div|enddiv|details|enddetails)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" }
+            }
+        },
+
+        "conditional-command": {
+            "comment": "\\if, \\else, \\endif",
+            "match": "(\\\\)(if|else|endif)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.control.conditional.qdoc" }
+            }
+        },
+
+        "xref-command": {
+            "comment": "\\sa, \\keyword, \\target — cross-reference and anchors",
+            "match": "(\\\\)(sa|keyword|target)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "string.other.link.qdoc" }
+            }
+        },
+
+        "image-command": {
+            "comment": "\\image filename [alt text]  and  \\inlineimage filename [{alt}]",
+            "match": "(\\\\)(image|inlineimage)\\s+(\\S+)(?:\\s+(.+))?",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" },
+                "3": { "name": "string.other.qdoc" },
+                "4": { "name": "comment.block.qdoc" }
+            }
+        },
+
+        "generic-command": {
+            "comment": "Catch-all for any other \\command or custom macro",
+            "match": "(\\\\)([a-zA-Z][a-zA-Z0-9]*)\\b",
+            "captures": {
+                "1": { "name": "punctuation.definition.keyword.qdoc" },
+                "2": { "name": "keyword.other.qdoc" }
+            }
+        }
+    }
 }
